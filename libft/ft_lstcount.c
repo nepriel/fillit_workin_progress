@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstcount.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 16:06:42 by huszalew          #+#    #+#             */
-/*   Updated: 2018/12/10 22:36:24 by huszalew         ###   ########.fr       */
+/*   Created: 2018/12/10 21:53:04 by huszalew          #+#    #+#             */
+/*   Updated: 2018/12/10 21:54:13 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(const char *s)
+size_t		ft_lstcount(t_list *lst)
 {
-	if (!s)
-		return ;
-	write(1, s, ft_strlen(s));
+	size_t		i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

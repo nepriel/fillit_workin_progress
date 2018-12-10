@@ -6,7 +6,7 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 16:44:20 by huszalew          #+#    #+#             */
-/*   Updated: 2018/12/10 15:15:00 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:54:53 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ size_t				ft_tablen(char **tab);
 void				ft_freetab(char **tab, int nb);
 char				**ft_strtabdup(char **tab);
 void				ft_lstrev(t_list **alst);
+size_t				ft_lstcount(t_list *lst);
 
 #endif

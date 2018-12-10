@@ -6,7 +6,7 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:01:13 by huszalew          #+#    #+#             */
-/*   Updated: 2018/12/10 15:20:43 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:58:41 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		write(1, "usage: ./fillit <file>\n", 23);
-		return (0);
+		ft_putstr("usage: ./fillit <file>\n");
+		return (1);
 	}
 	if (!(list = ft_read_tetris(open(argv[1], O_RDONLY))))
 	{
-		write(1, "error\n", 6);
-		return (0);
+		ft_putstr("error\n");
+		return (1);
 	}
-	//grid = solve(list);
+	grid = ft_solve(list);
 	ft_print_grid(grid);
 	ft_free_grid(grid);
 	ft_free_lst(list);

@@ -6,25 +6,11 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:01:31 by huszalew          #+#    #+#             */
-/*   Updated: 2018/12/10 14:26:22 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 23:28:16 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-void		ft_free_tetris(t_tetris *tetris)
-{
-	int		y;
-
-	y = 0;
-	while (y < tetris->height)
-	{
-		ft_memdel((void **)(&(tetris->pos[y])));
-		y++;
-	}
-	ft_memdel((void **)(&(tetris->pos)));
-	ft_memdel((void **)&tetris);
-}
 
 t_list		*ft_free_lst(t_list *list)
 {
@@ -42,15 +28,29 @@ t_list		*ft_free_lst(t_list *list)
 	return (NULL);
 }
 
-t_tetris	*ft_new_tetris(char **pos, char value, int width, int height)
+void		ft_free_tetris(t_tetris *tetris)
+{
+	int		y;
+
+	y = 0;
+	while (y < tetris->height)
+	{
+		ft_memdel((void **)(&(tetris->pos[y])));
+		y++;
+	}
+	ft_memdel((void **)(&(tetris->pos)));
+	ft_memdel((void **)&tetris);
+}
+
+t_tetris	*ft_new_tetris(char **pos, int width, int height, char value)
 {
 	t_tetris	*tetris;
 
 	tetris = ft_memalloc(sizeof(t_tetris));
 	tetris->pos = pos;
-	tetris->value = value;
 	tetris->width = width;
 	tetris->height = height;
+	tetris->value = value;
 	return (tetris);
 }
 

@@ -6,15 +6,15 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:01:18 by huszalew          #+#    #+#             */
-/*   Updated: 2018/12/10 15:15:45 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 21:40:21 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void			ft_min_max(char *str, t_point *min, t_point *max)
+void		ft_min_max(char *str, t_point *min, t_point *max)
 {
-	size_t		i;
+	int			i;
 
 	i = 0;
 	while (i < 20)
@@ -34,32 +34,32 @@ static void			ft_min_max(char *str, t_point *min, t_point *max)
 	}
 }
 
-static t_tetris		*ft_get_piece(char *str, char value)
+t_tetris	*ft_get_piece(char *str, char value)
 {
 	t_point		*min;
 	t_point		*max;
 	char		**pos;
-	size_t		i;
-	t_tetris	*tetris;
+	int			i;
+	t_tetris	*tetri;
 
 	min = ft_new_point(3, 3);
 	max = ft_new_point(0, 0);
 	ft_min_max(str, min, max);
-	pos = ft_memalloc(sizeof(char *) * (max->y - min->x + 1));
+	pos = ft_memalloc(sizeof(char *) * (max->y - min->y + 1));
 	i = 0;
-	while (i < max->y - min->x + 1)
+	while (i < max->y - min->y + 1)
 	{
 		pos[i] = ft_strnew(max->x - min->x + 1);
-		ft_strncpy(pos[i], str + min->x + (i + min->y) * 5, max->x - min->x + 1);
+		ft_strncpy(pos[i], str + (min->x) + (i + min->y) * 5, max->x - min->x + 1);
 		i++;
 	}
-	tetris = ft_new_tetris(pos, max->x - min->x + 1, max->y - min->y + 1, value);
+	tetri = ft_new_tetris(pos, max->x - min->x + 1, max->y - min->y + 1, value);
 	ft_memdel((void **)&min);
 	ft_memdel((void **)&max);
-	return (tetris);
+	return (tetri);
 }
 
-static int			ft_count_connections(char *str)
+int			ft_count_connections(char *str)
 {
 	int			count;
 	int			i;
@@ -72,11 +72,11 @@ static int			ft_count_connections(char *str)
 		{
 			if ((i + 1) < 20 && str[i + 1] == '#')
 				count++;
-			if ((i - 1) < 20 && str[i - 1] == '#')
+			if ((i - 1) >= 0 && str[i - 1] == '#')
 				count++;
 			if ((i + 5) < 20 && str[i + 5] == '#')
 				count++;
-			if ((i - 5) < 20 && str[i - 5] == '#')
+			if ((i - 5) >= 0 && str[i - 5] == '#')
 				count++;
 		}
 		i++;
@@ -84,7 +84,7 @@ static int			ft_count_connections(char *str)
 	return (count == 6 || count == 8);
 }
 
-static int			ft_check_counts(char *str, int count)
+int			ft_check_counts(char *str, int count)
 {
 	int			i;
 	int			blocs;
@@ -97,7 +97,7 @@ static int			ft_check_counts(char *str, int count)
 		{
 			if (!(str[i] == '#' || str[i] == '.'))
 				return (1);
-			if (!(str[i] == '#' && ++blocs > 4))
+			if (str[i] == '#' && ++blocs > 4)
 				return (2);
 		}
 		else if (str[i] != '\n')
@@ -111,20 +111,20 @@ static int			ft_check_counts(char *str, int count)
 	return (0);
 }
 
-t_list			*ft_read_tetris(int fd)
+t_list		*ft_read_tetris(int fd)
 {
 	char		*buff;
-	char		cur;
 	int			count;
 	t_list		*list;
 	t_tetris	*tetris;
+	char		cur;
 
 	buff = ft_strnew(21);
-	cur = 'A';
 	list = NULL;
+	cur = 'A';
 	while ((count = read(fd, buff, 21)) >= 20)
 	{
-		if ((ft_check_counts(buff, count) != 0)
+		if (ft_check_counts(buff, count) != 0
 				|| (tetris = ft_get_piece(buff, cur++)) == NULL)
 		{
 			ft_memdel((void **)&buff);

@@ -6,7 +6,7 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:55:43 by huszalew          #+#    #+#             */
-/*   Updated: 2018/11/20 14:34:48 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 22:36:14 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ void	ft_putstr_fd(const char *s, int fd)
 {
 	if (!s)
 		return ;
-	while (*s)
-		ft_putchar_fd(*(s++), fd);
+	write(fd, s, ft_strlen(s));
 }

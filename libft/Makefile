@@ -6,7 +6,7 @@
 #    By: huszalew <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 15:50:20 by huszalew          #+#    #+#              #
-#    Updated: 2018/12/10 15:11:01 by huszalew         ###   ########.fr        #
+#    Updated: 2018/12/10 21:55:54 by huszalew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = ft_atoi.c \
 	  ft_isupper.c \
 	  ft_itoa.c \
 	  ft_lstadd.c \
+	  ft_lstcount.c \
 	  ft_lstdel.c \
 	  ft_lstdelone.c \
 	  ft_lstiter.c \

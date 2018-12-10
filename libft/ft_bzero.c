@@ -6,7 +6,7 @@
 /*   By: huszalew <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 09:23:12 by huszalew          #+#    #+#             */
-/*   Updated: 2018/11/11 16:29:00 by huszalew         ###   ########.fr       */
+/*   Updated: 2018/12/10 22:24:27 by huszalew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*ps;
-
-	ps = (unsigned char *)s;
-	while (n > 0)
-	{
-		*ps++ = '\0';
-		n--;
-	}
+	ft_memset(s, 0, n);
 }
