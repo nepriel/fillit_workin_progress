@@ -6,12 +6,13 @@
 #    By: huszalew <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 12:20:25 by huszalew          #+#    #+#              #
-#    Updated: 2018/12/10 23:22:57 by huszalew         ###   ########.fr        #
+#    Updated: 2018/12/11 18:29:57 by huszalew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fillit
 
+DEBUG = no
 
 SRC_PATH := ./
 OBJ_PATH := ./
@@ -21,7 +22,10 @@ LIB_PATH := ./libft
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 LFLAGS := -L$(LIB_PATH) -lft
-DEBUG = -g
+
+ifeq ($(DEBUG),yes)
+	CFLAGS += -g
+endif
 
 SRC := fillit.c \
 	  ft_read.c \
@@ -46,11 +50,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIB_PATH)
-	@$(CC) $(CFLAGS) $(DEBUG) $(LFLAGS) -o $@ $^
+	@$(CC) $(CFLAGS) $(LFLAGS) -o $@ $^
 	@echo "Compile" [ $(NAME) ] $(SUCCESS)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(HDR)
-	@$(CC) $(CFLAGS) $(DEBUG) -I$(HDR_PATH) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I$(HDR_PATH) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJ)
@@ -60,6 +64,9 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "Delete" [ $(NAME) ] "..." $(OK)
 
-re: fclean all
+lfclean:
+	@$(MAKE) fclean -C $(LIB_PATH)
 
-.PHONY: all clean fclean re
+re: lfclean fclean all
+
+.PHONY: all clean fclean lfclean re
